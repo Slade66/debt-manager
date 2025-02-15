@@ -9,4 +9,9 @@ public class DatabaseInitializerTest {
         DatabaseInitializer.createDatabase();
     }
 
+    @Test
+    void testCreateTable() {
+        DatabaseInitializer.createTable();
+    }
+
 }
