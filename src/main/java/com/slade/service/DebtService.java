@@ -19,4 +19,14 @@ public class DebtService {
     public static List<Debt> getAllDebts() {
         return DebtDAO.getAllDebts();
     }
+
+    public static void updateDebt(Debt debt) {
+        int affectedRows = DebtDAO.updateDebt(debt);
+        if (affectedRows > 0) {
+            System.out.println("更新债务记录成功！");
+        } else {
+            System.out.println("更新债务记录失败！");
+        }
+    }
+
 }

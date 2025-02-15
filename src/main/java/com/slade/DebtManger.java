@@ -43,6 +43,7 @@ public class DebtManger {
                     break;
                 case "3":
                     System.out.println("【更新债务】");
+                    handleUpdateDebt();
                     break;
                 case "4":
                     System.out.println("【删除债务】");
@@ -130,5 +131,54 @@ public class DebtManger {
                     debt.getRepaymentDate());
         }
     }
+
+    private static void handleUpdateDebt() {
+        System.out.print("请输入要更新的债务记录对应的债权人：");
+        String creditor = scanner.nextLine();
+
+        // 提示用户选择更新哪些字段
+        System.out.print("请输入新的总欠款金额（直接回车表示不更新）：");
+        String totalAmountStr = scanner.nextLine();
+        BigDecimal newTotalAmount = null;
+        if (!totalAmountStr.isEmpty()) {
+            try {
+                newTotalAmount = new BigDecimal(totalAmountStr);
+            } catch (NumberFormatException e) {
+                System.out.println("金额格式错误，跳过总欠款金额更新。");
+            }
+        }
+
+        System.out.print("请输入新的当月待还金额（直接回车表示不更新）：");
+        String currStr = scanner.nextLine();
+        BigDecimal newRepaymentCurr = null;
+        if (!currStr.isEmpty()) {
+            try {
+                newRepaymentCurr = new BigDecimal(currStr);
+            } catch (NumberFormatException e) {
+                System.out.println("金额格式错误，跳过当月待还金额更新。");
+            }
+        }
+
+        System.out.print("请输入新的下月待还金额（直接回车表示不更新）：");
+        String nextStr = scanner.nextLine();
+        BigDecimal newRepaymentNext = null;
+        if (!nextStr.isEmpty()) {
+            try {
+                newRepaymentNext = new BigDecimal(nextStr);
+            } catch (NumberFormatException e) {
+                System.out.println("金额格式错误，跳过下月待还金额更新。");
+            }
+        }
+
+        System.out.print("请输入新的还款日期说明（直接回车表示不更新）：");
+        String newRepaymentDate = scanner.nextLine();
+        if (newRepaymentDate.trim().isEmpty()) {
+            newRepaymentDate = null;
+        }
+
+        Debt debt = new Debt(creditor, newTotalAmount, newRepaymentCurr, newRepaymentNext, newRepaymentDate);
+        DebtService.updateDebt(debt);
+    }
+
 
 }
