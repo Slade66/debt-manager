@@ -122,6 +122,11 @@ public class DebtManger {
         System.out.printf("%-20s %-15s %-15s %-15s %-20s%n", "Creditor", "Total Amount", "Repay Curr", "Repay Next", "Repayment Date");
         System.out.println("-----------------------------------------------------------------------------------------------");
 
+        // 定义合计变量，初始值为 0
+        BigDecimal sumTotal = BigDecimal.ZERO;
+        BigDecimal sumCurr = BigDecimal.ZERO;
+        BigDecimal sumNext = BigDecimal.ZERO;
+
         // 打印每一条记录
         for (Debt debt : debts) {
             System.out.printf("%-20s %-15s %-15s %-15s %-20s%n",
@@ -130,7 +135,25 @@ public class DebtManger {
                     debt.getRepaymentCurr() != null ? debt.getRepaymentCurr().toString() : "",
                     debt.getRepaymentNext() != null ? debt.getRepaymentNext().toString() : "",
                     debt.getRepaymentDate());
+
+            // 累加合计（注意：只对不为 null 的字段进行累加）
+            if (debt.getTotalAmount() != null) {
+                sumTotal = sumTotal.add(debt.getTotalAmount());
+            }
+            if (debt.getRepaymentCurr() != null) {
+                sumCurr = sumCurr.add(debt.getRepaymentCurr());
+            }
+            if (debt.getRepaymentNext() != null) {
+                sumNext = sumNext.add(debt.getRepaymentNext());
+            }
         }
+
+        // 打印分割线
+        System.out.println("-----------------------------------------------------------------------------------------------");
+
+        // 打印合计行
+        System.out.printf("%-20s %-15s %-15s %-15s %-20s%n",
+                "合计", sumTotal.toString(), sumCurr.toString(), sumNext.toString(), "");
     }
 
     private static void handleUpdateDebt() {
