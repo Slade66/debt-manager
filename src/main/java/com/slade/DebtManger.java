@@ -36,6 +36,7 @@ public class DebtManger {
                 case "1":
                     System.out.println("【新增债务】");
                     handleAddDebt();
+                    handleGetAllDebts();
                     break;
                 case "2":
                     System.out.println("【查询债务】");
@@ -44,10 +45,12 @@ public class DebtManger {
                 case "3":
                     System.out.println("【更新债务】");
                     handleUpdateDebt();
+                    handleGetAllDebts();
                     break;
                 case "4":
                     System.out.println("【删除债务】");
                     handleDeleteDebt();
+                    handleGetAllDebts();
                     break;
                 case "5":
                     System.out.println("【退出程序】");
@@ -108,7 +111,7 @@ public class DebtManger {
         Debt debt = new Debt(creditor, totalAmount, repaymentCurr, repaymentNext, repaymentDate);
         DebtService.addDebt(debt);
 
-        System.out.println("录入的债务信息为：");
+        System.out.print("录入的债务信息为：");
         System.out.println(debt);
     }
 
