@@ -47,6 +47,7 @@ public class DebtManger {
                     break;
                 case "4":
                     System.out.println("【删除债务】");
+                    handleDeleteDebt();
                     break;
                 case "5":
                     System.out.println("【退出程序】");
@@ -180,5 +181,23 @@ public class DebtManger {
         DebtService.updateDebt(debt);
     }
 
+    private static void handleDeleteDebt() {
+        System.out.print("请输入要删除的债务记录对应的债权人：");
+        String creditor = scanner.nextLine();
+
+        if (creditor.trim().isEmpty()) {
+            System.out.println("债权人为空");
+            return;
+        }
+
+        System.out.print("确定删除？（输入y）：");
+        String confirm = scanner.nextLine();
+        if (!confirm.equalsIgnoreCase("y")) {
+            System.out.println("取消删除操作");
+            return;
+        }
+
+        DebtService.deleteDebt(creditor);
+    }
 
 }

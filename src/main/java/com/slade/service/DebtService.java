@@ -29,4 +29,13 @@ public class DebtService {
         }
     }
 
+    public static void deleteDebt(String creditor) {
+        int affectedRows = DebtDAO.deleteDebt(creditor);
+        if (affectedRows > 0) {
+            System.out.println("删除债务记录成功！");
+        } else {
+            System.out.println("删除债务记录失败！");
+        }
+    }
+
 }

@@ -133,4 +133,16 @@ public class DebtDAO {
 
     }
 
+    public static int deleteDebt(String creditor) {
+        String sql = "DELETE FROM debt WHERE creditor = ?";
+        try (Connection conn = JdbcUtil.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, creditor);
+            return stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }
