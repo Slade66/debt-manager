@@ -3,6 +3,8 @@ package com.slade.service;
 import com.slade.db.Debt;
 import com.slade.db.DebtDAO;
 
+import java.util.List;
+
 public class DebtService {
 
     public static void addDebt(Debt debt) {
@@ -14,4 +16,7 @@ public class DebtService {
         }
     }
 
+    public static List<Debt> getAllDebts() {
+        return DebtDAO.getAllDebts();
+    }
 }

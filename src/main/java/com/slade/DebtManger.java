@@ -5,6 +5,7 @@ import com.slade.db.Debt;
 import com.slade.service.DebtService;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 public class DebtManger {
@@ -38,6 +39,7 @@ public class DebtManger {
                     break;
                 case "2":
                     System.out.println("【查询债务】");
+                    handleGetAllDebts();
                     break;
                 case "3":
                     System.out.println("【更新债务】");
@@ -108,5 +110,25 @@ public class DebtManger {
         System.out.println(debt);
     }
 
+    private static void handleGetAllDebts() {
+        List<Debt> debts = DebtService.getAllDebts();
+        if (debts.isEmpty()) {
+            System.out.println("没有债务记录。");
+            return;
+        }
+        // 格式化输出：先打印表头
+        System.out.printf("%-20s %-15s %-15s %-15s %-20s%n", "Creditor", "Total Amount", "Repay Curr", "Repay Next", "Repayment Date");
+        System.out.println("-----------------------------------------------------------------------------------------------");
+
+        // 打印每一条记录
+        for (Debt debt : debts) {
+            System.out.printf("%-20s %-15s %-15s %-15s %-20s%n",
+                    debt.getCreditor(),
+                    debt.getTotalAmount() != null ? debt.getTotalAmount().toString() : "",
+                    debt.getRepaymentCurr() != null ? debt.getRepaymentCurr().toString() : "",
+                    debt.getRepaymentNext() != null ? debt.getRepaymentNext().toString() : "",
+                    debt.getRepaymentDate());
+        }
+    }
 
 }
